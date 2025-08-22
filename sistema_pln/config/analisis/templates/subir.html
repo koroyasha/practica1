@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Subida - Sistema Azul Marino Futurista</title>
+<style>
+    /* Reset y base */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(145deg, #0a1b38, #11254d);
+        color: #f0f0f0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    /* Fondo dinámico tipo partículas */
+    body::before {
+        content:"";
+        position:absolute;
+        top:0; left:0;
+        width:100%; height:100%;
+        background: radial-gradient(circle, rgba(0,191,255,0.15) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: moveBG 20s linear infinite;
+        z-index:0;
+    }
+
+    @keyframes moveBG {
+        0% { background-position:0 0; }
+        100% { background-position:50px 50px; }
+    }
+
+    /* Panel principal */
+    .upload-dashboard {
+        position: relative;
+        z-index:1;
+        background: linear-gradient(135deg, #1b2b4f, #14204a);
+        width: 100%;
+        max-width: 520px;
+        border-radius: 20px;
+        padding: 50px 35px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        border: 2px solid #00bfff;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        color: #00bfff;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    h1::after {
+        content:'';
+        display:block;
+        width:80px;
+        height:3px;
+        background:#00bfff;
+        margin:10px auto 0;
+        border-radius:2px;
+        animation: glowLine 1.5s infinite alternate;
+    }
+
+    @keyframes glowLine {
+        0% { box-shadow: 0 0 5px #00bfff; }
+        100% { box-shadow: 0 0 15px #00bfff; }
+    }
+
+    .icon-top {
+        font-size: 60px;
+        color: #00bfff;
+        text-align: center;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Formulario */
+    .form-group { display:flex; flex-direction:column; gap:8px; }
+    label { font-weight:bold; color:#80c0ff; font-size:14px; }
+    input[type="text"], input[type="file"] {
+        padding: 14px;
+        border-radius: 12px;
+        border: 2px solid #2c3e70;
+        background:#0b1d3a;
+        color:#f0f0f0;
+        font-size:15px;
+        transition: all 0.3s ease;
+    }
+    input[type="text"]:focus, input[type="file"]:focus {
+        border-color:#00bfff;
+        box-shadow:0 0 12px #00bfff;
+        outline:none;
+        background:#11254d;
+    }
+    .help-text { font-size:12px; color:#80c0ff; }
+
+    /* Botón futurista */
+    button {
+        padding:16px;
+        border:none;
+        border-radius:15px;
+        background: linear-gradient(90deg, #00bfff, #3498db, #00bfff);
+        color:#0b1d3a;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+        position:relative;
+        overflow:hidden;
+        transition: all 0.3s ease;
+    }
+    button::before {
+        content:"";
+        position:absolute;
+        top:0; left:-75%;
+        width:50%;
+        height:100%;
+        background: rgba(255,255,255,0.2);
+        transform: skewX(-25deg);
+        transition: 0.5s;
+    }
+    button:hover::before { left:125%; }
+    button:hover { transform: translateY(-3px); box-shadow:0 8px 20px rgba(0,191,255,0.5); }
+
+    /* Link de vuelta */
+    .back-link {
+        text-align:center;
+        color:#80c0ff;
+        text-decoration:none;
+        font-size:14px;
+        transition: all 0.3s;
+    }
+    .back-link:hover { color:#00bfff; text-decoration:underline; }
+
+</style>
+</head>
+<body>
+
+<div class="upload-dashboard">
+    <div class="icon-top">📂</div>
+    <h1>Sube tu Archivo</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_titulo">Título del archivo:</label>
+            <input type="text" id="id_titulo" name="titulo" placeholder="Ej: Noticias del día" required>
+            <div class="help-text">Asigna un título descriptivo</div>
+        </div>
+
+        <div class="form-group">
+            <label for="id_archivo">Seleccionar archivo:</label>
+            <input type="file" id="id_archivo" name="archivo" accept=".txt,.text" required>
+            <div class="help-text">Formatos aceptados: .txt</div>
+        </div>
+
+        <button type="submit">🚀 Subir y Procesar</button>
+    </form>
+
+    <a href="{% url 'lista_textos' %}" class="back-link">← Volver a la lista de archivos</a>
+</div>
+
+</body>
+</html>

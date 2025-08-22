@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resultados del Análisis - Azul Marino</title>
+<style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0b1d3a; /* Azul marino oscuro */
+        color: #f0f0f0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .dashboard {
+        width: 100%;
+        max-width: 1100px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #00bfff; /* Azul celeste */
+        margin-bottom: 5px;
+        font-size: 32px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #a0c4ff;
+        margin-bottom: 30px;
+        font-size: 18px;
+    }
+
+    .stats-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    .stats-card {
+        background-color: #1a2a4f; /* Azul marino medio */
+        padding: 25px 40px;
+        border-radius: 12px;
+        text-align: center;
+        min-width: 200px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+        border: 2px solid #2c3e70;
+        transition: transform 0.3s;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stats-number {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #00bfff;
+        margin-bottom: 10px;
+    }
+
+    .stats-label {
+        font-size: 1rem;
+        color: #a0c4ff;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        margin-bottom: 40px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #1a2a4f;
+        color: #00bfff;
+        font-size: 16px;
+    }
+
+    tr {
+        background-color: #11254d;
+        border-radius: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #0d1a3d;
+    }
+
+    tr:hover {
+        background-color: #0f2460;
+    }
+
+    .word-rank {
+        text-align: center;
+        font-weight: bold;
+        color: #00bfff;
+    }
+
+    .progress-bar {
+        background-color: #0b1d3a;
+        height: 12px;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00bfff, #3498db);
+        border-radius: 8px;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.2s;
+        color: #0b1d3a;
+        background-color: #00bfff;
+    }
+
+    .btn:hover {
+        background-color: #0095dd;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: #1a2a4f;
+        color: #00bfff;
+        border: 2px solid #00bfff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #0f2460;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #a0c4ff;
+    }
+
+    .empty-state h3 {
+        margin-top: 20px;
+        font-size: 24px;
+        color: #00bfff;
+    }
+
+    .empty-state p {
+        font-size: 16px;
+        color: #a0c4ff;
+    }
+
+    .empty-state div {
+        font-size: 50px;
+    }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>📊 Resultados del Análisis</h1>
+    <div class="subtitle">{{ texto.titulo }}</div>
+
+    <div class="stats-container">
+        <div class="stats-card">
+            <div class="stats-number">{{ total_palabras }}</div>
+            <div class="stats-label">Palabras encontradas</div>
+        </div>
+    </div>
+
+    <h2 style="color:#00bfff; margin-bottom:20px;">📈 Histograma de palabras (Top 20)</h2>
+
+    {% if palabras_comunes %}
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">#</th>
+                <th width="40%">Palabra</th>
+                <th width="25%">Frecuencia</th>
+                <th width="25%">Frecuencia relativa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for palabra, frecuencia in palabras_comunes %}
+            <tr>
+                <td class="word-rank">{{ forloop.counter }}</td>
+                <td><strong>{{ palabra }}</strong></td>
+                <td>{{ frecuencia }} ocurrencias</td>
+                <td>
+                    <div>{% widthratio frecuencia total_palabras 100 %}%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {% widthratio frecuencia total_palabras 100 %}%"></div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <div>📝</div>
+        <h3>No se encontraron palabras</h3>
+        <p>El archivo podría estar vacío o en un formato no compatible</p>
+    </div>
+    {% endif %}
+
+    <div class="btn-container">
+        <a href="{% url 'subir_texto' %}" class="btn">📤 Analizar otro texto</a>
+        <a href="{% url 'lista_textos' %}" class="btn btn-secondary">← Volver a la lista</a>
+    </div>
+</div>
+
+</body>
+</html>

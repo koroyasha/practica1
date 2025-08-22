@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Textos Subidos - Azul Marino</title>
+<style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0b1d3a; /* Azul marino oscuro */
+        color: #f0f0f0;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .dashboard {
+        width: 100%;
+        max-width: 1000px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        color: #00bfff; /* Azul celeste */
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+
+    .btn-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #0b1d3a;
+        background-color: #00bfff;
+        margin: 5px;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+        background-color: #0095dd;
+        transform: translateY(-2px);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        margin-bottom: 40px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #1a2a4f; /* Azul marino medio */
+        color: #00bfff;
+        font-size: 16px;
+    }
+
+    tr {
+        background-color: #11254d;
+        border-radius: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #0d1a3d;
+    }
+
+    tr:hover {
+        background-color: #0f2460;
+    }
+
+    td a.btn-analizar {
+        background-color: #27ae60;
+        color: #f0f0f0;
+    }
+
+    td a.btn-analizar:hover {
+        background-color: #219a52;
+        transform: translateY(-2px);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #a0c4ff;
+    }
+
+    .empty-state div {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .empty-state h3 {
+        font-size: 24px;
+        color: #00bfff;
+        margin-bottom: 10px;
+    }
+
+    .empty-state p {
+        font-size: 16px;
+        color: #a0c4ff;
+    }
+
+    .admin-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #a0c4ff;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .admin-link:hover {
+        color: #00bfff;
+    }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>📚 Textos Subidos</h1>
+
+    <div class="btn-container">
+        <a href="{% url 'subir_texto' %}" class="btn">📤 Subir nuevo texto</a>
+    </div>
+
+    {% if textos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Fecha de subida</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for texto in textos %}
+            <tr>
+                <td><strong>{{ texto.titulo }}</strong></td>
+                <td>{{ texto.fecha_subida|date:"d/m/Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'analizar_texto' texto.id %}" class="btn btn-analizar">📊 Analizar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <div>📝</div>
+        <h3>No hay textos subidos</h3>
+        <p>Sube tu primer archivo de texto para comenzar el análisis</p>
+    </div>
+    {% endif %}
+
+    <a href="/admin/" class="admin-link">Acceder como administración</a>
+</div>
+
+</body>
+</html>
