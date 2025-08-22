@@ -1,12 +1,8 @@
-from django.urls import path, include 
-from django.conf import settings 
-from django.conf.urls.static import static 
+from django.urls import path
+from . import views
 
-urlpatterns = [ 
-    path('admin/', admin.site.urls), 
-    path('', include('analisis.urls')), 
-] 
-
-if settings.DEBUG: 
-    urlpatterns += static(settings.MEDIA_URL, 
-document_root=settings.MEDIA_ROOT) 
+urlpatterns = [
+    path('subir/', views.subir_texto, name='subir_texto'),
+    path('', views.lista_textos, name='lista_textos'),
+    path('analizar/<int:texto_id>/', views.analizar_texto, name='analizar_texto'),
+]

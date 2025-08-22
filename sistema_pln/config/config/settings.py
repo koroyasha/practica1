@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ms#!)j-qz!c1(jcn&-jj_2m2m-@k3r4ft8j1$uq*(80tj$p9rz'
+SECRET_KEY = 'django-insecure-qf*gbgq0onmi#!^_%igtkxxp^f2y!qytvxnp!sotpa!@8^^-ke'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'analisis', # tu aplicacion de analisador de texto
+    'analisis',
 ]
 
 MIDDLEWARE = [
@@ -101,15 +101,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'es-es'
-
-TIME_ZONE = 'UTC'
-
+# Internationalization - CONFIGURACIÓN PARA MÉXICO
+LANGUAGE_CODE = 'es-mx'  # Español de México
+TIME_ZONE = 'America/Mexico_City'  # Zona horaria de Ciudad de México
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -123,5 +118,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/' 
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
