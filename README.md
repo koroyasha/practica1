@@ -21,12 +21,12 @@ Abra una terminal o consola de comandos.
 
 Clone el repositorio desde GitHub usando el enlace proporcionado:
 
-git clone https://github.com/tu-usuario/tu-proyecto.git
+git clone https://github.com/koroyasha/practica1.git
 
 
 Ingrese al directorio del proyecto:
-
-cd tu-proyecto
+Ejemplo
+cd S:universidad/noveno/lenguaje natural/sistema_pln
 
 3. Archivos importantes para la instalación
 
@@ -45,7 +45,7 @@ El proyecto utiliza pipenv para gestionar dependencias:
 
 Cree el entorno virtual e instale automáticamente las dependencias:
 
-pipenv install
+pipenv install 
 
 
 Este comando lee los archivos Pipfile y Pipfile.lock para instalar exactamente las librerías necesarias.
