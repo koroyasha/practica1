@@ -33,7 +33,7 @@ def analizar_texto(request, texto_id):
     contador_palabras = Counter(palabras)
     palabras_comunes = contador_palabras.most_common(20)  # Top 20 palabras
     
-    return render(request, 'resultado.html', {
+    return render(request, 'histograma.html', {
         'texto': texto_obj,
         'palabras_comunes': palabras_comunes,
         'total_palabras': len(palabras)
