@@ -3,6 +3,7 @@ from collections import Counter
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TextoAnalizadoForm
 from .models import TextoAnalizado
+from .preprocesamiento import limpiar_texto
 
 def subir_texto(request):
     if request.method == 'POST':
@@ -25,24 +26,41 @@ def analizar_texto(request, texto_id):
     try:
         with texto_obj.archivo.open('r') as archivo:
             contenido = archivo.read()
-    except:
+    except Exception as e:
         contenido = ""
+        print(f"Error al leer archivo: {e}")
     
-    # Procesar el texto y generar histograma (se mantiene por si en algun caso se llegara a necesitar)
-    palabras = re.findall(r'\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]+\b', contenido.lower())
-    contador_palabras = Counter(palabras)
-    palabras_comunes = contador_palabras.most_common(20)  # Top 20 palabras
+    # Inicializar variables para evitar errores
+    palabras_comunes_original = []
+    palabras_comunes_limpias = []
+    total_palabras_original = 0
+    total_palabras_limpias = 0
+    palabras_limpias_muestra = []
     
-    # nuevo procesamiento con limpieza
-    palabras_limpias = limpiar_texto(contenido)
-    contador_limpio = Counter(palabras_limpias)
-    palabras_comunes_limpias = contador_limpio.most_common(20)
+    # PROCESAMIENTO ORIGINAL
+    try:
+        palabras_originales = re.findall(r'\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]+\b', contenido.lower())
+        contador_original = Counter(palabras_originales)
+        palabras_comunes_original = contador_original.most_common(20)
+        total_palabras_original = len(palabras_originales)
+    except Exception as e:
+        print(f"Error en procesamiento original: {e}")
+    
+    # NUEVO PROCESAMIENTO CON LIMPIEZA
+    try:
+        palabras_limpias = limpiar_texto(contenido)
+        contador_limpio = Counter(palabras_limpias)
+        palabras_comunes_limpias = contador_limpio.most_common(20)
+        total_palabras_limpias = len(palabras_limpias)
+        palabras_limpias_muestra = palabras_limpias[:50]
+    except Exception as e:
+        print(f"Error en procesamiento limpio: {e}")
     
     return render(request, 'histograma.html', {
         'texto': texto_obj,
         'palabras_comunes_original': palabras_comunes_original,
         'palabras_comunes_limpias': palabras_comunes_limpias,
-        'total_palabras_original': len(palabras_originales),
-        'total_palabras_limpias': len(palabras_limpias),
-        'palabras_limpias_muestra': palabras_limpias[:50]  # Para mostrar muestra
+        'total_palabras_original': total_palabras_original,
+        'total_palabras_limpias': total_palabras_limpias,
+        'palabras_limpias_muestra': palabras_limpias_muestra
     })
