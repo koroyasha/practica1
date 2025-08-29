@@ -62,5 +62,6 @@ def analizar_texto(request, texto_id):
         'palabras_comunes_limpias': palabras_comunes_limpias,
         'total_palabras_original': total_palabras_original,
         'total_palabras_limpias': total_palabras_limpias,
+        'stopwords_eliminadas': total_palabras_original - total_palabras_limpias,
         'palabras_limpias_muestra': palabras_limpias_muestra
     })
