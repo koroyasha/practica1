@@ -28,13 +28,21 @@ def analizar_texto(request, texto_id):
     except:
         contenido = ""
     
-    # Procesar el texto y generar histograma
+    # Procesar el texto y generar histograma (se mantiene por si en algun caso se llegara a necesitar)
     palabras = re.findall(r'\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]+\b', contenido.lower())
     contador_palabras = Counter(palabras)
     palabras_comunes = contador_palabras.most_common(20)  # Top 20 palabras
     
+    # nuevo procesamiento con limpieza
+    palabras_limpias = limpiar_texto(contenido)
+    contador_limpio = Counter(palabras_limpias)
+    palabras_comunes_limpias = contador_limpio.most_common(20)
+    
     return render(request, 'histograma.html', {
         'texto': texto_obj,
-        'palabras_comunes': palabras_comunes,
-        'total_palabras': len(palabras)
+        'palabras_comunes_original': palabras_comunes_original,
+        'palabras_comunes_limpias': palabras_comunes_limpias,
+        'total_palabras_original': len(palabras_originales),
+        'total_palabras_limpias': len(palabras_limpias),
+        'palabras_limpias_muestra': palabras_limpias[:50]  # Para mostrar muestra
     })
