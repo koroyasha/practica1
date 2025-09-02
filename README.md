@@ -1,69 +1,81 @@
-Instrucciones para instalar y ejecutar el sistema en Django
+Guía Completa de Instalación, Ejecución, Actualización y Solución de Errores del Sistema en Django
 
-Este documento describe los pasos necesarios para descargar, instalar y ejecutar el sistema desarrollado en Django, el cual permite subir un archivo de texto y generar un histograma de palabras en forma de tabla.
+Este documento explica paso a paso cómo descargar, instalar, ejecutar y actualizar el sistema desarrollado en Django, así como resolver los errores más comunes que podrían surgir.
 
 1. Requisitos previos
 
-Antes de comenzar, asegúrese de contar con lo siguiente instalado en su computadora:
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
-Python 3.10 o superior → https://www.python.org/downloads/
+Requisito	Descripción	Enlace de descarga
+Python 3.10 o superior	Lenguaje de programación necesario para ejecutar Django.	https://www.python.org/downloads/
 
-Git (para clonar el repositorio) → https://git-scm.com/downloads
+Git	Para clonar y actualizar el repositorio.	https://git-scm.com/downloads
 
-pipenv (para gestionar el entorno virtual).
-Puede instalarlo con el siguiente comando:
+pipenv	Para crear y administrar el entorno virtual.	Se instala con: pip install pipenv
+2. Descargar o actualizar el proyecto
+Caso A → Si aún no has descargado el proyecto
 
-pip install pipenv
+Abre una terminal o consola de comandos.
 
-2. Descargar el proyecto
-
-Abra una terminal o consola de comandos.
-
-Clone el repositorio desde GitHub usando el enlace proporcionado:
+Clona el repositorio desde GitHub:
 
 git clone https://github.com/koroyasha/practica1.git
 
 
-Ingrese al directorio del proyecto:
-Ejemplo
-cd S:universidad/noveno/lenguaje natural/sistema_pln
+Ingresa al directorio del proyecto:
 
-3. Archivos importantes para la instalación
+cd S:/universidad/noveno/lenguaje_natural/sistema_pln
 
-El proyecto incluye dos archivos clave para que funcione correctamente:
+Caso B → Si ya descargaste el proyecto y quieres la última versión
 
-Pipfile → Contiene la lista de dependencias necesarias para ejecutar el proyecto.
+Si ya tienes el proyecto en tu computadora, no lo vuelvas a clonar.
+Solo actualízalo:
 
-Pipfile.lock → Contiene las versiones exactas de las dependencias para garantizar que todos los usuarios usen la misma configuración.
+git pull origin main
+
+
+🔹 Ejemplo real:
+
+cd S:/universidad/noveno/lenguaje_natural/sistema_pln
+git pull origin main
+
+
+Esto descargará solo los cambios recientes.
 
 ⚠️ Importante:
-No borre, edite ni mueva estos archivos, ya que pipenv los utiliza para instalar automáticamente todo lo necesario.
+Si modificaste archivos del proyecto y no quieres perder tus cambios, crea primero una copia de seguridad.
+
+3. Archivos importantes para la instalación
+Archivo	Función
+Pipfile	Lista de librerías necesarias para el proyecto.
+Pipfile.lock	Versiones exactas de las librerías para garantizar compatibilidad.
+
+⚠️ No borres, edites ni muevas estos archivos, ya que pipenv los usa para instalar todo automáticamente.
 
 4. Crear y activar el entorno virtual
 
-El proyecto utiliza pipenv para gestionar dependencias:
+Instalar dependencias del proyecto:
 
-Cree el entorno virtual e instale automáticamente las dependencias:
-
-pipenv install 
+pipenv install
 
 
-Este comando lee los archivos Pipfile y Pipfile.lock para instalar exactamente las librerías necesarias.
-
-Active el entorno virtual:
+Activar el entorno virtual:
 
 pipenv shell
 
-5. Configurar el entorno de Django
-5.1. Configuración de idioma y zona horaria
 
-El sistema está configurado para trabajar en español.
-Si desea modificar esta configuración, puede editar el archivo:
+(Opcional) Actualizar dependencias:
+
+pipenv update
+
+5. Configurar el entorno de Django
+
+Si necesitas cambiar idioma o zona horaria, edita el archivo:
 
 proyecto/settings.py
 
 
-Y verificar que las siguientes líneas existan:
+Verifica que tenga estas líneas:
 
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'America/Mexico_City'
@@ -72,54 +84,152 @@ USE_TZ = True
 
 6. Preparar la base de datos
 
-Ejecute los siguientes comandos para crear la base de datos local necesaria para Django:
+Ejecuta estos comandos para configurar la base de datos local:
 
 python manage.py makemigrations
 python manage.py migrate
 
-7. Crear un superusuario para el panel de administración
+7. Crear un superusuario
 
-El sistema habilita el panel de administración de Django. Para ingresar, necesita un usuario administrador:
+Si deseas acceder al panel de administración:
 
 python manage.py createsuperuser
 
 
-Siga las instrucciones en pantalla para ingresar nombre de usuario, correo y contraseña.
+Sigue las instrucciones y define usuario, correo y contraseña.
 
 8. Ejecutar el servidor
 
-Inicie el servidor local con el siguiente comando:
+Para iniciar el servidor local:
 
 python manage.py runserver
 
 
-Una vez iniciado, abra su navegador y acceda a:
+Abre tu navegador y visita:
+
 http://127.0.0.1:8000
 
 9. Uso del sistema
 9.1. Subir un archivo
 
-En la página principal, encontrará un formulario para subir un archivo de texto (.txt).
-
-Seleccione el archivo desde su computadora y presione Subir.
+En la página principal, selecciona un archivo .txt y presiona Subir.
 
 9.2. Generar el histograma
 
-Una vez que el archivo esté cargado, presione el botón "Generar histograma".
+Haz clic en Generar histograma.
 
-El sistema analizará el texto y mostrará en una tabla la frecuencia de cada palabra encontrada.
+Se mostrará una tabla con la frecuencia de cada palabra.
 
 10. Acceso al panel de administración
 
-Para acceder al panel de administración de Django:
+Si creaste un superusuario, puedes acceder a:
 
-10. Detener el servidor
+http://127.0.0.1:8000/admin
 
-Para detener el servidor, presione las teclas:
+11. Detener el servidor y salir del entorno
+
+Detener el servidor:
 
 CTRL + C
 
 
-Y para salir del entorno virtual:
+Salir del entorno virtual:
 
 exit
+
+12. Resumen de comandos clave
+Acción	Comando
+Clonar proyecto	git clone <url>
+Actualizar proyecto	git pull origin main
+Crear entorno virtual	pipenv install
+Activar entorno	pipenv shell
+Migrar base de datos	python manage.py migrate
+Crear superusuario	python manage.py createsuperuser
+Iniciar servidor	python manage.py runserver
+Salir del entorno	exit
+13. Solución de errores comunes
+
+Aquí te muestro problemas frecuentes y cómo solucionarlos:
+
+❌ Error 1 → “pipenv no se reconoce como un comando”
+
+Causa: pipenv no está instalado o no está en la variable PATH.
+Solución:
+
+pip install pipenv
+
+
+Si el error persiste, prueba:
+
+python -m pip install pipenv
+
+❌ Error 2 → “No se puede activar el entorno virtual”
+
+Causa: Intentas ejecutar pipenv shell fuera de la carpeta del proyecto.
+Solución:
+
+cd ruta/del/proyecto
+pipenv shell
+
+❌ Error 3 → “El módulo Django no está instalado”
+
+Causa: No se instalaron las dependencias correctamente.
+Solución:
+
+pipenv install
+
+
+Si sigue fallando:
+
+pipenv install django
+
+❌ Error 4 → “Permission denied” o problemas al actualizar
+
+Causa: No tienes permisos para escribir en la carpeta.
+Solución en Windows:
+
+Abre CMD o Git Bash como Administrador.
+
+Repite el comando git pull.
+
+❌ Error 5 → “Pipfile.lock no coincide con el Pipfile”
+
+Causa: El proyecto actualizó dependencias y tu versión local está desactualizada.
+Solución:
+
+pipenv install --ignore-pipfile
+
+
+O bien:
+
+pipenv update
+
+❌ Error 6 → “El puerto 8000 ya está en uso”
+
+Causa: Hay otro servidor corriendo.
+Solución:
+
+python manage.py runserver 8001
+
+
+Esto iniciará el proyecto en:
+
+http://127.0.0.1:8001
+
+❌ Error 7 → Problemas con git pull
+
+Causa: Hiciste cambios locales que chocan con la versión remota.
+Solución rápida:
+
+git stash
+git pull origin main
+git stash pop
+
+14. Recomendaciones finales
+
+✅ Usa siempre pipenv para manejar dependencias.
+✅ Antes de actualizar el proyecto, guarda tus cambios.
+✅ Si algo falla, borra la carpeta .venv y reinstala todo:
+
+pipenv --rm
+pipenv install
