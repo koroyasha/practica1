@@ -253,6 +253,9 @@
             <div class="stats-number">{{ stopwords_eliminadas }}</div>
             <div class="stats-label">Stopwords eliminadas</div>
         </div>
+        <div class="stats-card">
+            <div class="stats-number">{{ total_ngramas }}</div>
+            <div class="stats-label">{{ n_actual }}-gramas totales</div>
     </div>
 
     <div class="comparison-container">
@@ -342,6 +345,47 @@
         </div>
     </div>
     {% endif %}
+<!-- Sección de N-gramas -->
+<div class="analysis-section" style="margin-top: 30px;">
+    <h3 class="section-title">🔗 N-gramas más frecuentes</h3>
+
+    <!-- Selector para elegir n -->
+    <form method="get" style="text-align: center; margin-bottom: 15px;">
+        <label for="n">Seleccionar tamaño de n-grama:</label>
+        <select name="n" id="n" onchange="this.form.submit()" 
+                style="padding: 5px; border-radius: 5px; background-color: #1a2a4f; color: #00bfff; border: 1px solid #2c3e70;">
+            <option value="2" {% if n_actual == 2 %}selected{% endif %}>Bigramas (n=2)</option>
+            <option value="3" {% if n_actual == 3 %}selected{% endif %}>Trigramas (n=3)</option>
+            <option value="4" {% if n_actual == 4 %}selected{% endif %}>4-gramas (n=4)</option>
+        </select>
+    </form>
+
+    {% if ngramas_mas_comunes %}
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">#</th>
+                <th width="60%">N-grama</th>
+                <th width="30%">Frecuencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ngrama, frecuencia in ngrams_mas_comunes %}
+            <tr>
+                <td class="word-rank">{{ forloop.counter }}</td>
+                <td><strong>{{ ngrama }}</strong></td>
+                <td>{{ frecuencia }} ocurrencias</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <div>🔍</div>
+        <p>No se encontraron n-gramas</p>
+    </div>
+    {% endif %}
+</div>
 
     <div class="btn-container">
         <a href="{% url 'subir_texto' %}" class="btn">📤 Analizar otro texto</a>
