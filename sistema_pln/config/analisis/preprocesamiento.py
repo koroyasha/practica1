@@ -67,3 +67,47 @@ def generar_ngrams(tokens, n=2, top=20):
 
 def obtener_stopwords_espanol():
     return list(stop_words_es)
+
+def generar_ngrams_con_fronteras(tokens, n=2):
+    """
+    Genera n-gramas incluyendo tokens de inicio <s> y fin </s> para cada oración.
+    Devuelve un contador de n-gramas y el total de n-gramas.
+    """
+    if not tokens:
+        return Counter()
+    
+    # Dividir tokens en oraciones simples usando punto como referencia
+    oraciones = []
+    oracion_actual = []
+    for token in tokens:
+        oracion_actual.append(token)
+        if token in ['.', '!', '?']:
+            if oracion_actual:
+                oraciones.append(oracion_actual)
+            oracion_actual = []
+    if oracion_actual:
+        oraciones.append(oracion_actual)
+    
+    ngrams_totales = []
+    for oracion in oraciones:
+        tokens_frontera = ['<s>'] * (n-1) + oracion + ['</s>']
+        ngrams_oracion = zip(*[tokens_frontera[i:] for i in range(n)])
+        ngrams_oracion = [' '.join(grama) for grama in ngrams_oracion]
+        ngrams_totales.extend(ngrams_oracion)
+    
+    return Counter(ngrams_totales)
+
+def calcular_probabilidades_mle(contador_ngrams, n_minus1_contador):
+    """
+    Calcula la probabilidad condicional P(w_n | w_1...w_{n-1}) usando MLE
+    :param contador_ngrams: Counter de n-gramas
+    :param n_minus1_contador: Counter de (n-1)-gramas
+    :return: diccionario {ngrama: probabilidad}
+    """
+    probabilidades = {}
+    for ngrama, freq in contador_ngrams.items():
+        partes = ngrama.split()
+        clave = ' '.join(partes[:-1]) if len(partes) > 1 else ''
+        prob = freq / n_minus1_contador.get(clave, 1)
+        probabilidades[ngrama] = prob
+    return probabilidades

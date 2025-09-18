@@ -392,6 +392,45 @@
         <a href="{% url 'lista_textos' %}" class="btn btn-secondary">← Volver a la lista</a>
     </div>
 </div>
+<!-- Sección de Probabilidades Condicionales MLE -->
+<div class="analysis-section" style="margin-top: 30px;">
+    <h3 class="section-title">📐 Probabilidades Condicionales (MLE)</h3>
+    <p style="text-align:center; color:#a0c4ff; margin-bottom:15px;">
+        Probabilidad P(wₙ | w₁…wₙ₋₁) calculada con Estimación de Máxima Verosimilitud
+    </p>
 
+    {% if resultados_prob %}
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">#</th>
+                <th width="45%">N-grama</th>
+                <th width="20%">Frecuencia</th>
+                <th width="25%">Frecuencia relativa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in resultados_prob %}
+            <tr>
+                <td class="word-rank">{{ forloop.counter }}</td>
+                <td><strong>{{ fila.ngrama }}</strong></td>
+                <td>{{ fila.frecuencia }} ocurrencias</td>
+                <td>
+                    <div>{% widthratio fila.frecuencia total_ngramas 100 %}%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {% widthratio fila.frecuencia total_ngramas 100 %}%"></div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <div>⚠️</div>
+        <p>No se pudo calcular probabilidades. Verifica que haya n-gramas.</p>
+    </div>
+    {% endif %}
+</div>
 </body>
 </html>
