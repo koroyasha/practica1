@@ -1,0 +1,7 @@
+El procesamiento de lenguaje natural es una disciplina fascinante que combina la lingüística, la informática y la inteligencia artificial. En este texto de prueba, vamos a analizar cómo el sistema elimina las palabras vacías y los símbolos de puntuación.
+
+Los stopwords o palabras vacías son términos muy comunes como: el, la, los, las, un, una, unos, unas, de, del, al, y, e, o, u, que, en, a, para, por, con, sin, sobre, entre, hacia.
+
+¡Observaremos cómo desaparecen estas palabras! ¿Verdad que es interesante? Después de la limpieza, solo quedaran las palabras más significativas: procesamiento, lenguaje, natural, disciplina, fascinante, combina, lingüística, informática, inteligencia, artificial, texto, prueba, analizar, sistema, elimina, palabras, vacías, símbolos, puntuación, stopwords, términos, comunes, observar, desaparecen, verdad, interesante, limpieza, quedaran, significativas.
+
+El análisis de textos es fundamental para muchas aplicaciones: chatbots, motores de búsqueda, análisis de sentimientos, resumen automático y traducción automática. ¡La tecnología avanza rápidamente!

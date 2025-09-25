@@ -1,0 +1,13 @@
+El procesamiento de lenguaje natural es una disciplina fascinante que combina la linguistica, la informatica y la inteligencia artificial. En este texto de prueba, vamos a analizar como el sistema elimina las palabras vacias y los simbolos de puntuacion.
+
+Los stopwords o palabras vacias son terminos muy comunes como: el, la, los, las, un, una, unos, unas, de, del, al, y, e, o, u, que, en, a, para, por, con, sin, sobre, entre, hacia.
+
+Observaremos como desaparecen estas palabras! Verdad que es interesante? Despues de la limpieza, solo quedaran las palabras mas significativas: procesamiento, lenguaje, natural, disciplina, fascinante, combina, linguistica, informatica, inteligencia, artificial, texto, prueba, analizar, sistema, elimina, palabras, vacias, simbolos, puntuacion, stopwords, terminos, comunes, observar, desaparecen, verdad, interesante, limpieza, quedaran, significativas.
+
+El analisis de textos es fundamental para muchas aplicaciones: chatbots, motores de busqueda, analisis de sentimientos, resumen automatico y traduccion automatica. La tecnologia avanza rapidamente!El procesamiento de lenguaje natural es una disciplina fascinante que combina la linguistica, la informatica y la inteligencia artificial. En este texto de prueba, vamos a analizar como el sistema elimina las palabras vacias y los simbolos de puntuacion.
+
+Los stopwords o palabras vacias son terminos muy comunes como: el, la, los, las, un, una, unos, unas, de, del, al, y, e, o, u, que, en, a, para, por, con, sin, sobre, entre, hacia.
+
+Observaremos como desaparecen estas palabras! Verdad que es interesante? Despues de la limpieza, solo quedaran las palabras mas significativas: procesamiento, lenguaje, natural, disciplina, fascinante, combina, linguistica, informatica, inteligencia, artificial, texto, prueba, analizar, sistema, elimina, palabras, vacias, simbolos, puntuacion, stopwords, terminos, comunes, observar, desaparecen, verdad, interesante, limpieza, quedaran, significativas.
+
+El analisis de textos es fundamental para muchas aplicaciones: chatbots, motores de busqueda, analisis de sentimientos, resumen automatico y traduccion automatica. La tecnologia avanza rapidamente!
